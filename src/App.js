@@ -1,8 +1,12 @@
 import "./App.css";
 import styled from "styled-components";
 import WardrobeFittings from "./assets/Wardrobe+Fittings.webp";
+import { L1 , L2 ,L3 } from "./database/db";
+
+
 
 function App() {
+
   return (
     <Container>
       <SidebarNav>
@@ -12,6 +16,15 @@ function App() {
       <CategoryContainer>
         <ItemCategory>
           <CategoryHeading>Wardrobe Fitting</CategoryHeading>
+          <ItemList>
+          <Item href="#">
+            <img src="https://d1xkbitcv5i7vd.cloudfront.net/Assets/Categories+Images/L2+Images/Applicators/Applicators.webp" />
+            <p>Item Name</p>
+          </Item>
+          </ItemList>
+        </ItemCategory>
+        <ItemCategory>
+          <CategoryHeading>Accessories</CategoryHeading>
           <ItemList>
           <Item href="#">
             <img src={WardrobeFittings} />
@@ -37,17 +50,8 @@ function App() {
             <img src={WardrobeFittings} />
             <p>Item Name</p>
           </Item>
-          
           </ItemList>
-          
         </ItemCategory>
-        {/* <ItemSection>
-          <Heading>Wardrobe Fitting</Heading>
-          <Item>
-            <img src={WardrobeFittings}/>
-            <p>Item Name</p>
-          </Item>
-        </ItemSection> */}
       </CategoryContainer>
     </Container>
   );
@@ -59,10 +63,16 @@ const Container = styled.div`
 `;
 
 const SidebarNav = styled.div`
-  width: 35vw;
-  height: 100vh;
-  overflow-y: scroll;
-  position: sticky;
+  overflow-y: scroll; 
+  height: 100%;
+  width: 30%;
+  position: fixed;
+  /* z-index: 1;
+  top: 0;
+  left: 0; */
+  overflow-x: hidden;
+  padding-top: 20px;
+  
 `;
 
 const MenuItem = styled.div`
@@ -72,7 +82,7 @@ const MenuItem = styled.div`
 `;
 const CategoryContainer = styled.div`
   border: 2px solid red;
-  height: 100vh;
+  margin-left: 30%;
   width: 100%;
   display: flex;
   flex-direction: column;
