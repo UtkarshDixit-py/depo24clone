@@ -1,57 +1,51 @@
 import "./App.css";
 import styled from "styled-components";
 import WardrobeFittings from "./assets/Wardrobe+Fittings.webp";
-import { L1 , L2 ,L3 } from "./database/db";
-
-
+import { L1, L2, L3 } from "./database/db";
 
 function App() {
+
+  var resultObj = L3.reduce(function (r, a) {
+    r[a.l2] = r[a.l2] || [];
+    r[a.l2].push(a);
+    return r;
+  }, Object.create(null));
+
+  var resultArr = Object.entries(resultObj);
+
+  
 
   return (
     <Container>
       <SidebarNav>
-        <MenuItem></MenuItem>
-        <MenuItem></MenuItem>
+        {
+          L1.map((item)=>{
+            return(
+              <MenuItem>
+              <p>{item.title}</p>
+              </MenuItem>
+            )
+          })
+        }
       </SidebarNav>
       <CategoryContainer>
-        <ItemCategory>
-          <CategoryHeading>Wardrobe Fitting</CategoryHeading>
-          <ItemList>
-          <Item href="#">
-            <img src="https://d1xkbitcv5i7vd.cloudfront.net/Assets/Categories+Images/L2+Images/Applicators/Applicators.webp" />
-            <p>Item Name</p>
-          </Item>
-          </ItemList>
-        </ItemCategory>
-        <ItemCategory>
-          <CategoryHeading>Accessories</CategoryHeading>
-          <ItemList>
-          <Item href="#">
-            <img src={WardrobeFittings} />
-            <p>Item Name</p>
-          </Item>
-          <Item href="#">
-            <img src={WardrobeFittings}/>
-            <p>Item Name</p>
-          </Item>
-          <Item href="#">
-            <img src={WardrobeFittings}/>
-            <p>Item Name</p>
-          </Item>
-          <Item href="#">
-            <img src={WardrobeFittings} />
-            <p>Item Name</p>
-          </Item>
-          <Item href="#">
-            <img src={WardrobeFittings} />
-            <p>Item Name</p>
-          </Item>
-          <Item href="#">
-            <img src={WardrobeFittings} />
-            <p>Item Name</p>
-          </Item>
-          </ItemList>
-        </ItemCategory>
+        {resultArr.map((category) => {
+          return (
+            <ItemCategory>
+              <CategoryHeading>{category[0]}</CategoryHeading>
+              <ItemList>
+                {category[1].map((item) => {
+                  return (
+                    <Item href="#">
+                      <img src={item.image} />
+                      <p>{item.title}</p>
+                    </Item>
+                  );
+                })}
+              </ItemList>
+            </ItemCategory>
+          );
+        })}
       </CategoryContainer>
     </Container>
   );
@@ -63,16 +57,12 @@ const Container = styled.div`
 `;
 
 const SidebarNav = styled.div`
-  overflow-y: scroll; 
+  overflow-y: scroll;
   height: 100%;
   width: 30%;
   position: fixed;
-  /* z-index: 1;
-  top: 0;
-  left: 0; */
   overflow-x: hidden;
   padding-top: 20px;
-  
 `;
 
 const MenuItem = styled.div`
@@ -95,7 +85,6 @@ const ItemCategory = styled.div`
   flex-direction: column;
 `;
 
-
 const CategoryHeading = styled.p`
   font-size: larger;
 
@@ -114,15 +103,14 @@ const CategoryHeading = styled.p`
   }
 `;
 
-const ItemList =  styled.div`
-display: grid;
-grid-template-columns:50% 50% ;
-grid-gap: 5px
-
-`
+const ItemList = styled.div`
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 5px;
+`;
 
 const Item = styled.a`
-  border: 2px solid #C2CCDF;
+  border: 2px solid #c2ccdf;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
