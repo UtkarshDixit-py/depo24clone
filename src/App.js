@@ -5,20 +5,31 @@ import { L1, L2, L3 } from "./database/db";
 
 function App() {
 
-  var resultObj = L3.reduce(function (r, a) {
+
+  var subMenuObj = L2.reduce(function(r,a){
+    r[a.l1] = r[a.l1] || [];
+    r[a.l1].push(a);
+    return r
+  },Object.create(null))
+
+  var subMenuArr = Object.entries(subMenuObj);
+
+  console.log(subMenuArr);
+
+  var categoryObj = L3.reduce(function (r, a) {
     r[a.l2] = r[a.l2] || [];
     r[a.l2].push(a);
     return r;
   }, Object.create(null));
 
-  var resultArr = Object.entries(resultObj);
+  var categoryArr = Object.entries(categoryObj);
 
   
 
   return (
     <Container>
       <SidebarNav>
-        {
+        {/* {
           L1.map((item)=>{
             return(
               <MenuItem>
@@ -26,17 +37,24 @@ function App() {
               </MenuItem>
             )
           })
-        }
+        } */}
+        <MenuItem>
+              <p>Furniture Fittings</p>
+        </MenuItem>
+        <MenuItem>
+              <p>Home Decor</p>
+        </MenuItem>
+        
       </SidebarNav>
       <CategoryContainer>
-        {resultArr.map((category) => {
+        {categoryArr.map((category,index) => {
           return (
             <ItemCategory>
-              <CategoryHeading>{category[0]}</CategoryHeading>
+              <CategoryHeading key={index}>{category[0]}</CategoryHeading>
               <ItemList>
-                {category[1].map((item) => {
+                {category[1].map((item,index) => {
                   return (
-                    <Item href="#">
+                    <Item href="#" key={index}>
                       <img src={item.image} />
                       <p>{item.title}</p>
                     </Item>
@@ -66,9 +84,10 @@ const SidebarNav = styled.div`
 `;
 
 const MenuItem = styled.div`
-  border: 2px solid green;
   margin-top: 5px;
   height: 10vh;
+  background-color: #C2CCDF;
+  
 `;
 const CategoryContainer = styled.div`
   border: 2px solid red;
