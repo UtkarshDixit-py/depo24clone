@@ -1,37 +1,37 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-const Categories = ({categoryArr}) => {
+const Categories = ({ categoryArr }) => {
   return (
     <CategoryContainer>
-        {categoryArr.map((category,index) => {
-          return (
-            <ItemCategory>
-              <CategoryHeading key={index}>{category[0]}</CategoryHeading>
-              <ItemList>
-                {category[1].map((item,index) => {
-                  return (
-                    <Item href="#" key={index}>
-                      <img src={item.image} />
-                      <p>{item.title}</p>
-                    </Item>
-                  );
-                })}
-              </ItemList>
-            </ItemCategory>
-          );
-        })}
-      </CategoryContainer>
-  )
-}
+      {categoryArr.map((category, index) => {
+        return (
+          <ItemCategory>
+            <CategoryHeading id={index}>{category[0]}</CategoryHeading>
+            <ItemList>
+              {category[1].map((item, index) => {
+                return (
+                  <Item href="#" key={index}>
+                    <img src={item.image} />
+                    <p>{item.title}</p>
+                  </Item>
+                );
+              })}
+            </ItemList>
+          </ItemCategory>
+        );
+      })}
+    </CategoryContainer>
+  );
+};
 
 const CategoryContainer = styled.div`
-  border: 2px solid red;
   margin-left: 30%;
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 10px;
+  scroll-behavior: smooth;
 `;
 const ItemCategory = styled.div`
   height: auto;
@@ -40,7 +40,7 @@ const ItemCategory = styled.div`
   flex-direction: column;
 `;
 
-const CategoryHeading = styled.p`
+const CategoryHeading = styled.div`
   font-size: larger;
 
   font-weight: 500;
@@ -87,5 +87,4 @@ const Item = styled.a`
   }
 `;
 
-
-export default Categories
+export default Categories;

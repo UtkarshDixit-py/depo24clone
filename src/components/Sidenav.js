@@ -4,7 +4,6 @@ import SidenavItem from "./SidenavItem";
 import styled from "styled-components";
 
 const Sidenav = ({ subMenuArr }) => {
-    
   return (
     <SidebarNav>
       {subMenuArr.map((item, index) => {
